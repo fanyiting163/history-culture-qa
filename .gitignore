@@ -10,6 +10,8 @@ __pycache__/
 .vscode/
 uploads/
 data/chroma/
+data/raw/
+data/processed/
 *.log
 .DS_Store
 Thumbs.db
