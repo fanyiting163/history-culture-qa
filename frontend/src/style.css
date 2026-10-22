@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #1f2328;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 600;
+}
