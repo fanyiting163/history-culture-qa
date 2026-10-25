@@ -9,10 +9,13 @@
 | 全唐诗 | `全唐诗/poet.tang.*.json`，共 58 个 | 57,607 首 | 每首诗一条 `work`，一首一个 chunk |
 | 唐代作者 | `全唐诗/authors.tang.json` | 3,675 人 | 每位作者一条 `poet`，简介单独成一个 bio chunk |
 
+原始数据是繁体。入库时先清洗、去重，再用 OpenCC 转简体，步骤和统计见 [SOURCE.md](SOURCE.md#处理)。
+
 字段映射：
 
-- 诗：`title` / `author` / `paragraphs` / `id` → `work`。`paragraphs` 按行拼成正文，`author` 是作者名，按名字关联 `poet`
-- 作者：`name` / `desc` / `id` → `poet`。`desc` 为空的作者只建 `poet` 记录，不产出 bio chunk
+- 诗：`title` / `author` / `paragraphs` / `id` → `work`。`title`、`author`、`paragraphs` 存简体，`title_trad`、`author_trad`、`paragraphs_trad` 存清洗后的繁体原文。`paragraphs` 按行拼成正文；按繁体作者名关联 `poet`，同名多人时 `poet_id` 留空
+- 作者：`name` / `desc` / `id` → `poet`。`name`、`desc` 存简体，`name_trad`、`desc_trad` 存繁体。`desc` 为空的作者只建 `poet` 记录，不产出 bio chunk
+- chunk 的 `text` 用简体；正文为空的诗只保留 `work` 记录，不产出 chunk
 
 一首一个 chunk 是因为唐诗普遍很短，再切会把一联拆散；检索命中后能直接引用整首诗和作者。
 
